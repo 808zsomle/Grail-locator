@@ -1,75 +1,139 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090909">
-<title>GRAIL LOCATER — Global Archive Search</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#050505"><title>GRAIL LOCATER — Global Archive Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
-:root{color-scheme:dark;--silver:#ededed;--muted:#99999d;--line:#414146}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -5%,#323235,#101012 38%,#080809 80%);color:#ededee;font-family:'DM Sans',Arial,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}
-header{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(18px,5vw,75px);border-bottom:1px solid #444;background:#09090bd9;font-size:11px;letter-spacing:3px}
-header span:last-child{color:#999}.hero{text-align:center;padding:64px 18px 46px}.crest{font-family:Georgia,serif;color:#eee;text-shadow:0 0 14px #fff9;font-size:50px}
-h1{font-family:'UnifrakturCook',Georgia,serif;font-size:clamp(65px,11vw,145px);line-height:1.05;margin:8px 0 8px;letter-spacing:-2px;background:linear-gradient(#fff 5%,#999 36%,#f9f9f9 51%,#777 69%,#eaeaea 87%);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 5px 0 #000)}
-.tag{color:#aaa;letter-spacing:5px;font-size:10px}.rule{height:1px;max-width:950px;background:linear-gradient(90deg,transparent,#a6a6ab,transparent);margin:33px auto 0}
-main{max-width:1300px;margin:auto;padding:0 22px 70px}.search{display:flex;border:1px solid #aaa;background:linear-gradient(#222226,#101011);box-shadow:0 0 0 5px #080808,0 12px 30px #0009}
-.search input{min-width:0;flex:1;border:0;background:transparent;color:white;padding:21px;font-size:16px;outline:none}.search button{border:0;border-left:1px solid #aaa;padding:0 35px;background:linear-gradient(125deg,#777,#fff 37%,#919194 62%,#eaeaea);color:#080808;font-weight:800;letter-spacing:2px}
-.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:27px 0}.chip{background:#151518;color:#babac0;border:1px solid #44444a;padding:10px 13px;font-size:11px;letter-spacing:1px}.chip[aria-pressed="true"]{background:#303034;border-color:#dbdbdf;color:#fff}.chip:disabled{opacity:.46;cursor:not-allowed}.sort{margin-left:auto;padding:10px;border:1px solid #505057;background:#141416;color:#ddd}
-.note{padding:13px 16px;border-left:2px solid #c5c5c9;background:#1d1d20;color:#babac1;font-size:12px;line-height:1.6}.note strong{color:#fff}.heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:25px 0 20px;padding:18px 0;border-top:1px solid #56565a;border-bottom:1px solid #333}.heading h2{font-size:14px;letter-spacing:3px;margin:0}.heading p{font-size:12px;color:#aaa;margin:6px 0 0}#status{font-size:11px;letter-spacing:1px;color:#aaa;text-align:right}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}.card{overflow:hidden;border:1px solid #3d3d42;background:#121214}.picture{aspect-ratio:4/4.6;background:radial-gradient(#39393b,#151516);position:relative}.picture img{width:100%;height:100%;object-fit:cover}.label{position:absolute;top:10px;left:10px;background:#070708e6;border:1px solid #777;padding:7px;font-size:10px;letter-spacing:1px}.data{padding:15px}.name{line-height:1.5;font-size:13px;font-weight:700;min-height:42px}.price{font-size:19px;margin:12px 0;color:#fff;font-weight:700}.meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#bbb;font-size:11px}.listing{display:block;border:1px solid #888;padding:11px;text-align:center;color:#eee;text-decoration:none;margin-top:17px;font-size:10px;letter-spacing:2px}.listing:hover{background:#333}
-.empty{grid-column:1/-1;text-align:center;padding:70px 15px;border:1px solid #48484d;background:radial-gradient(ellipse at top,#29292c,#101012 68%)}.empty .icon{font-size:49px}.empty h3{font-family:'UnifrakturCook',Georgia,serif;font-size:36px;margin:12px 0}.empty p{max-width:560px;margin:auto;color:#b2b2b8;font-size:13px;line-height:1.7}
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -5%,#2e2e31,#0e0e10 38%,#050505 80%);color:#ededee;font-family:'DM Sans',Arial,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid #fff;outline-offset:2px}
+header{display:flex;justify-content:space-between;padding:18px clamp(18px,5vw,75px);border-bottom:1px solid #444;background:#050505d9;font-size:11px;letter-spacing:3px;color:#999}
+.hero{text-align:center;padding:56px 18px 38px}
+.crest{font-family:Georgia,serif;font-size:46px;text-shadow:0 0 14px #fff9}
+h1{font-family:'UnifrakturCook',Georgia,serif;font-size:clamp(60px,11vw,140px);line-height:1.05;margin:6px 0;letter-spacing:-2px;background:linear-gradient(#fff 5%,#999 36%,#f9f9f9 51%,#777 69%,#eaeaea 87%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 5px 0 #000)}
+.tag{color:#aaa;letter-spacing:5px;font-size:10px}
+.rule{height:1px;max-width:950px;background:linear-gradient(90deg,transparent,#a6a6ab,transparent);margin:30px auto 0}
+main{max-width:1300px;margin:auto;padding:0 22px 70px}
+.search{display:flex;border:1px solid #aaa;background:linear-gradient(#222226,#101011);box-shadow:0 0 0 5px #070707,0 12px 30px #0009}
+.search input{min-width:0;flex:1;border:0;background:transparent;color:#fff;padding:20px;font-size:16px;outline:none}
+.search button{border:0;border-left:1px solid #aaa;padding:0 32px;background:linear-gradient(125deg,#777,#fff 37%,#919194 62%,#eaeaea);color:#080808;font-weight:800;letter-spacing:2px}
+.search button:disabled{opacity:.6}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:18px 0 10px}
+.filters input,.filters select{padding:10px;border:1px solid #505057;background:#141416;color:#ddd;min-width:0;width:100%}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.chip{background:#151518;color:#babac0;border:1px solid #44444a;padding:9px 12px;font-size:11px;letter-spacing:1px}
+.chip:disabled{opacity:.45;cursor:not-allowed}.chip[aria-pressed=true]{background:#303034;border-color:#dbdbdf;color:#fff}
+.saved{display:inline-flex;border:1px solid #6a6a70}.saved button{background:#151518;color:#ddd;border:0;padding:8px 11px;font-size:11px}.saved button+button{border-left:1px solid #444;color:#999}
+.note{padding:13px 16px;border-left:2px solid #c5c5c9;background:#1d1d20;color:#babac1;font-size:12px;line-height:1.6;margin:14px 0}
+.heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:22px 0;padding:16px 0;border-top:1px solid #56565a;border-bottom:1px solid #333}
+.heading h2{font-size:14px;letter-spacing:3px;margin:0}.heading p{font-size:12px;color:#aaa;margin:6px 0 0}#status{font-size:11px;letter-spacing:1px;color:#aaa;text-align:right}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.card{overflow:hidden;border:1px solid #3d3d42;background:#121214;transition:border-color .2s}.card:hover{border-color:#cfcfd4}
+.picture{aspect-ratio:4/4.6;background:radial-gradient(#39393b,#151516);position:relative}.picture img{width:100%;height:100%;object-fit:cover}
+.label{position:absolute;top:10px;left:10px;background:#070708e6;border:1px solid #777;padding:6px 7px;font-size:10px;letter-spacing:1px}
+.fav{position:absolute;top:8px;right:8px;width:34px;height:34px;background:#070708e6;border:1px solid #777;color:#ddd;font-size:16px}.fav[aria-pressed=true]{color:#fff;background:#4a4a50}
+.data{padding:14px}.name{line-height:1.5;font-size:13px;font-weight:700;min-height:40px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.price{font-size:19px;margin:10px 0;font-weight:700}.meta{display:flex;flex-direction:column;gap:3px;color:#bbb;font-size:11px}
+.listing{display:block;border:1px solid #888;padding:11px;text-align:center;color:#eee;text-decoration:none;margin-top:14px;font-size:10px;letter-spacing:2px}.listing:hover{background:#333}
+.empty{grid-column:1/-1;text-align:center;padding:64px 15px;border:1px solid #48484d;background:radial-gradient(ellipse at top,#29292c,#101012 68%)}
+.empty .icon{font-size:46px}.empty h3{font-family:'UnifrakturCook',Georgia,serif;font-size:34px;margin:10px 0}.empty p{max-width:560px;margin:auto;color:#b2b2b8;font-size:13px;line-height:1.7}
+.more{display:block;margin:28px auto 0;padding:14px 38px;background:#151518;border:1px solid #aaa;color:#fff;letter-spacing:2px;font-size:11px}
 footer{text-align:center;border-top:1px solid #333;padding:30px 12px;font-size:10px;letter-spacing:2px;color:#888}
-@media(max-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:670px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}main{padding:0 12px 50px}.hero{padding:43px 10px 35px}h1{font-size:clamp(57px,11vw,85px)}.tag{letter-spacing:2px}.search button{padding:0 13px;font-size:11px}.sort{margin-left:0}.data{padding:10px}.price{font-size:16px}header span:last-child{display:none}}
-</style>
-</head>
-<body>
+@media(max-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:670px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}main{padding:0 12px 50px}.search button{padding:0 14px;font-size:11px}.data{padding:10px}.price{font-size:16px}header span:last-child{display:none}.tag{letter-spacing:2px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
 <header><span>✠ &nbsp; GL / 001</span><span>THE INDEPENDENT GLOBAL ARCHIVE &nbsp; ✦ &nbsp; EST. 2026</span></header>
 <section class="hero"><div class="crest" aria-hidden="true">✠</div><h1>Grail Locater</h1><div class="tag">RARE FINDS · ONE SEARCH · NO COMPROMISE</div><div class="rule"></div></section>
 <main>
 <form id="searchForm" class="search"><input id="query" type="search" required maxlength="120" placeholder="Search vintage grails, denim, archive pieces..." aria-label="Search listings"><button id="submit">LOCATE ✦</button></form>
-<nav class="toolbar" aria-label="Marketplace filters">
-<button type="button" class="chip" data-market="all" aria-pressed="true">ALL CONNECTED</button>
-<button type="button" class="chip" data-market="eBay" aria-pressed="false">EBAY</button>
-<button type="button" class="chip" disabled title="Integration not connected">VINTED · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">GRAILED · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">DEPOP · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">ETSY · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">VESTIAIRE · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">KLEINANZEIGEN · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">SELLRAZE · SOON</button>
-<button type="button" class="chip" disabled title="Integration not connected">SELLSPY · SOON</button>
-<select class="sort" id="sort" aria-label="Sort results"><option value="relevance">SORT: RELEVANCE</option><option value="low">PRICE: LOW TO HIGH</option><option value="high">PRICE: HIGH TO LOW</option></select>
-</nav>
-<p class="note" id="notice"><strong>REAL LISTINGS ONLY.</strong> The site never generates fake products. eBay support is coded but needs approved production API access and Cloudflare secrets; other marketplaces are not connected yet.</p>
+<div class="filters">
+<select id="site" aria-label="eBay site and currency"><option value="EBAY_GB">eBay UK · GBP</option><option value="EBAY_US">eBay US · USD</option><option value="EBAY_DE">eBay DE · EUR</option><option value="EBAY_FR">eBay FR · EUR</option><option value="EBAY_IT">eBay IT · EUR</option><option value="EBAY_ES">eBay ES · EUR</option><option value="EBAY_AU">eBay AU · AUD</option><option value="EBAY_CA">eBay CA · CAD</option></select>
+<input id="min" type="number" min="0" step="any" placeholder="Min price" aria-label="Minimum price">
+<input id="max" type="number" min="0" step="any" placeholder="Max price" aria-label="Maximum price">
+<select id="cond" aria-label="Condition"><option value="">Any condition</option><option value="new">New</option><option value="used">Used</option></select>
+<select id="country" aria-label="Item location"><option value="">Any location</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="DE">Germany</option><option value="FR">France</option><option value="IT">Italy</option><option value="ES">Spain</option><option value="JP">Japan</option><option value="CA">Canada</option><option value="AU">Australia</option></select>
+<select id="sort" aria-label="Sort results"><option value="">Best match</option><option value="newest">Newest listed</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select>
+<input id="size" placeholder="Size (e.g. 32, L)" aria-label="Size, filters loaded results">
+<input id="brand" placeholder="Brand (in title)" aria-label="Brand, filters loaded results">
+</div>
+<div class="row"><button type="button" class="chip" id="saveSearch">SAVE THIS SEARCH</button><button type="button" class="chip" id="viewFav" aria-pressed="false">★ FAVOURITES (<span id="favCount">0</span>)</button><span id="savedList"></span></div>
+<div class="row" id="markets" aria-label="Marketplaces"></div>
+<p class="note" id="notice"><strong>Real listings only.</strong> eBay is the only marketplace wired up, and it needs eBay production keys in Cloudflare. The others are not connected and show no results. Size and brand filters apply to the listings already loaded.</p>
 <div class="heading"><div><h2>✠ &nbsp; THE ARCHIVE</h2><p id="subtitle">Search for Robin's Jeans, Ed Hardy, True Religion...</p></div><div id="status" role="status" aria-live="polite">AWAITING SEARCH</div></div>
-<div class="grid" id="results"><div class="empty"><div class="icon">✠</div><h3>The hunt starts here.</h3><p>Find vintage grails and view real listing photos, prices, sizes when available, locations, and the marketplace, all inside Grail Locater.</p></div></div>
+<div class="grid" id="results"><div class="empty"><div class="icon">✠</div><h3>The hunt starts here.</h3><p>Search to see real listing photos, prices, sizes when available, locations and conditions, all inside Grail Locater.</p></div></div>
+<button class="more" id="more" hidden>LOAD MORE</button>
 </main>
 <footer>GRAIL LOCATER &nbsp; ✠ &nbsp; INDEPENDENT SEARCH &nbsp; ✠ &nbsp; NOT AFFILIATED WITH CHROME HEARTS OR THE MARKETPLACES</footer>
 <script>
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
-let items=[],market='all',searchId=0;
-function empty(title,message){$('results').innerHTML='<div class="empty"><div class="icon">✠</div><h3>'+esc(title)+'</h3><p>'+esc(message)+'</p></div>'}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const F=['site','min','max','cond','country','sort'];
+let items=[],seen=new Set(),next=null,total=0,sid=0,current='',viewFav=false;
+let favs=store.get('gl_fav',{}),saved=store.get('gl_saved',[]);
+const LINK=/^https:\/\/([a-z0-9-]+\.)?ebay\.[a-z.]+\//i;
+
+['Vinted','Grailed','Depop','Etsy','Vestiaire','Kleinanzeigen','Sellraze','SellSpy'].forEach(n=>{$('markets').insertAdjacentHTML('beforeend','<button type="button" class="chip" disabled title="Not connected: no legitimate public search access set up yet">'+n.toUpperCase()+' · NOT CONNECTED</button>')});
+
+const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const dupKey=x=>norm(x.title)+'|'+x.price+'|'+x.currency;
+function money(x){if(x.price==null)return'Price not available';try{return new Intl.NumberFormat(undefined,{style:'currency',currency:x.currency}).format(x.price)}catch{return x.price+' '+x.currency}}
+function empty(t,m){$('results').innerHTML='<div class="empty"><div class="icon">✠</div><h3>'+esc(t)+'</h3><p>'+esc(m)+'</p></div>';$('more').hidden=true}
+function params(){const p=new URLSearchParams({q:$('query').value.trim()});F.forEach(k=>{const v=$(k).value;if(v)p.set(k,v)});return p}
+
 function render(){
- let list=items.filter(x=>market==='all'||x.marketplace===market);
- if($('sort').value!=='relevance') list.sort((a,b)=> $('sort').value==='low'?(Number(a.price)-Number(b.price)):(Number(b.price)-Number(a.price)));
- $('status').textContent=list.length+' LISTINGS';
- if(!list.length){empty('No listings found','Try a broader search. Only results from an active marketplace connection appear here.');return;}
- $('results').innerHTML=list.map(x=>{
- const link=String(x.url||'');const safeLink=/^https:\/\/(www\.)?ebay\.[a-z.]+\//i.test(link)?esc(link):'#';
- return '<article class="card"><div class="picture">'+(x.image?'<img loading="lazy" referrerpolicy="no-referrer" src="'+esc(x.image)+'" alt="'+esc(x.title)+'">':'')+'<span class="label">'+esc(x.marketplace)+'</span></div><div class="data"><div class="name">'+esc(x.title)+'</div><div class="price">'+esc(x.price_display||'Price not available')+'</div><div class="meta"><span>SIZE: '+esc(x.size||'Not specified')+'</span><span>⌖ '+esc(x.location||'Unknown')+'</span></div><a class="listing" href="'+safeLink+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL LISTING ↗</a></div></article>';
- }).join('');
+  const sz=norm($('size').value),br=norm($('brand').value);
+  let list=viewFav?Object.values(favs):items;
+  list=list.filter(x=>(!sz||norm(x.size||'').split(' ').includes(sz)||norm(x.size||'').includes(sz))&&(!br||norm(x.title).includes(br)));
+  $('favCount').textContent=Object.keys(favs).length;
+  $('status').textContent=viewFav?list.length+' FAVOURITES':list.length+(total?' SHOWN OF '+total:' LISTINGS');
+  $('more').hidden=viewFav||next==null;
+  if(!list.length){viewFav?empty('No favourites yet','Tap the star on any listing to keep it here.'):empty('No listings match','Loosen the filters or try a broader search. Only live marketplace results appear.');return}
+  $('results').innerHTML=list.map(x=>{
+    const safe=LINK.test(x.url||'')?esc(x.url):'#',on=!!favs[x.id];
+    return '<article class="card"><div class="picture">'+(x.image?'<img loading="lazy" referrerpolicy="no-referrer" src="'+esc(x.image)+'" alt="'+esc(x.title)+'">':'')+'<span class="label">'+esc(x.marketplace)+'</span><button class="fav" data-id="'+esc(x.id)+'" aria-pressed="'+on+'" aria-label="'+(on?'Remove from':'Add to')+' favourites">'+(on?'★':'☆')+'</button></div><div class="data"><div class="name">'+esc(x.title)+'</div><div class="price">'+esc(money(x))+'</div><div class="meta"><span>Size: '+esc(x.size||'not listed')+'</span><span>Condition: '+esc(x.condition||'not listed')+'</span><span>Location: '+esc(x.location||'not listed')+'</span></div><a class="listing" href="'+safe+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL LISTING ↗</a></div></article>'}).join('')}
+
+async function search(append){
+  const q=$('query').value.trim();if(!q)return;
+  const id=++sid;
+  if(!append){items=[];seen=new Set();next=null;total=0;viewFav=false;$('viewFav').setAttribute('aria-pressed','false');current=params().toString();$('subtitle').textContent='RESULTS FOR: '+q.toUpperCase();empty('Locating grails...','Fetching live listings from eBay.')}
+  const p=new URLSearchParams(current);if(append&&next!=null)p.set('offset',next);
+  $('submit').disabled=true;$('more').disabled=true;$('status').textContent='SEARCHING...';
+  try{
+    const res=await fetch('/api/search?'+p,{headers:{Accept:'application/json'}});
+    const body=await res.json().catch(()=>({}));
+    if(id!==sid)return;
+    if(!res.ok)throw new Error(body.error||'Search unavailable.');
+    for(const x of body.items||[]){const k=dupKey(x);if(!seen.has(k)){seen.add(k);items.push(x)}}
+    next=body.next??null;total=body.total||0;$('notice').textContent=body.message||'';render();
+  }catch(e){
+    if(id!==sid)return;
+    $('status').textContent='SEARCH UNAVAILABLE';
+    if(append)$('notice').textContent='Could not load more: '+e.message;else{items=[];empty('Search unavailable',e.message)}
+  }finally{if(id===sid){$('submit').disabled=false;$('more').disabled=false}}
 }
-document.querySelectorAll('[data-market]').forEach(b=>b.addEventListener('click',()=>{market=b.dataset.market;document.querySelectorAll('[data-market]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render()}));
-$('sort').addEventListener('change',render);
-$('searchForm').addEventListener('submit',async e=>{
- e.preventDefault();const q=$('query').value.trim();if(!q)return;
- const id=++searchId;$('submit').disabled=true;$('status').textContent='SEARCHING...';$('subtitle').textContent='RESULTS FOR: '+q.toUpperCase();empty('Locating grails...','Fetching actual listings from connected marketplaces.');
- try{const res=await fetch('/api/search?q='+encodeURIComponent(q),{headers:{Accept:'application/json'}});const body=await res.json();if(id!==searchId)return;
- if(!res.ok)throw new Error(body.error||'Search unavailable');
- items=Array.isArray(body.items)?body.items:[];$('notice').textContent=body.message||'Live eBay results. Other marketplaces are not connected.';render();
- }catch(error){if(id!==searchId)return;items=[];$('status').textContent='LIVE SEARCH UNAVAILABLE';empty('Connection needed',error.message)}
- finally{if(id===searchId)$('submit').disabled=false;}
-});
-</script>
-</body></html>
+
+function renderSaved(){
+  $('savedList').innerHTML=saved.map((s,i)=>{const p=new URLSearchParams(s);return '<span class="saved"><button type="button" data-run="'+i+'">'+esc(p.get('q'))+'</button><button type="button" data-del="'+i+'" aria-label="Delete saved search">×</button></span> '}).join('')}
+
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();search(false)});
+F.forEach(k=>$(k).addEventListener('change',()=>{if($('query').value.trim())search(false)}));
+['size','brand'].forEach(k=>$(k).addEventListener('input',render));
+$('more').addEventListener('click',()=>search(true));
+$('viewFav').addEventListener('click',()=>{viewFav=!viewFav;$('viewFav').setAttribute('aria-pressed',String(viewFav));render()});
+$('results').addEventListener('click',e=>{
+  const b=e.target.closest('.fav');if(!b)return;
+  const id=b.dataset.id;
+  if(favs[id])delete favs[id];else{const x=items.find(i=>i.id===id)||favs[id];if(x)favs[id]=x}
+  store.set('gl_fav',favs);render()});
+$('saveSearch').addEventListener('click',()=>{
+  if(!$('query').value.trim())return;
+  const s=params().toString();if(!saved.includes(s)){saved.unshift(s);saved=saved.slice(0,20);store.set('gl_saved',saved);renderSaved()}});
+$('savedList').addEventListener('click',e=>{
+  const r=e.target.dataset.run,d=e.target.dataset.del;
+  if(d!==undefined){saved.splice(+d,1);store.set('gl_saved',saved);renderSaved()}
+  else if(r!==undefined){const p=new URLSearchParams(saved[+r]);$('query').value=p.get('q')||'';F.forEach(k=>$(k).value=p.get(k)||'');search(false)}});
+renderSaved();render_init();
+function render_init(){$('favCount').textContent=Object.keys(favs).length}
+</script></body></html>
