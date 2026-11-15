@@ -1,33 +1,26 @@
 # GRAIL LOCATER ✠
 
-Black-and-silver, gothic-inspired vintage and archive fashion search.
+Black-and-silver, gothic-inspired vintage and archive fashion search. Results appear inside the site; links go to the original listing.
 
-## Current status
+## What works
 
-- **Frontend:** Responsive, in-page product cards for photos, title, price, size when supplied, listing location and marketplace.
-- **eBay:** Real eBay Browse API connector implemented in a Cloudflare Pages Function at `functions/api/search.js`. **Not active until you add approved production credentials.**
-- **Vinted, Grailed, Depop, Etsy, Vestiaire Collective, Kleinanzeigen, Sellraze, SellSpy:** Not connected. The UI marks these as unavailable instead of showing fake listings.
-- All result links open the original seller listing for checkout. GRAIL LOCATER does not handle purchases.
+- **Frontend (`public/index.html`):** responsive, in-page listing cards (photo, title, price in original currency, size when listed, condition, location, marketplace), filters (eBay site/currency, min/max price, condition, item country, size, brand), sorting (best match, newest, price), "load more" pagination, favourites and saved searches (stored in the browser's localStorage), duplicate removal (same title, price and currency).
+- **eBay (`functions/api/search.js`):** real Browse API connector with token caching. **Inactive until you add production credentials.**
 
-## Deploy to Cloudflare Pages
+## What is not done
 
-1. Sign in to Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git.
-2. Connect GitHub and select `808zsomle/Grail-locator`.
-3. Deploy settings: **Framework preset: None**, **Build command: blank**, **Build output directory: `.`**.
-4. Deploy once. Your website will appear under an available `*.pages.dev` address. The exact name is chosen by Cloudflare.
-5. In the Cloudflare Pages project, go to **Settings → Variables and Secrets** (wording may differ). Create these **encrypted secrets** for Production:
-   - `EBAY_CLIENT_ID` = eBay **production** App ID / Client ID
-   - `EBAY_CLIENT_SECRET` = eBay **production** Cert ID / Client Secret
-6. Redeploy the project after adding secrets. **Never put API secrets into GitHub files or client-side JavaScript.**
-7. Search for an item. Real listings appear inside the site **only if eBay grants API access**. The official Browse API may require production access approval.
+- Vinted, Grailed, Depop, Etsy, Vestiaire Collective, Kleinanzeigen, Sellraze, SellSpy: **not connected**. None has a public search API that I could confirm; Etsy needs app approval. The UI says so.
+- Size and brand filters only apply to listings already loaded. eBay's search summaries often omit size, so size is read from item specifics or the title when possible.
+- Favourites and saved searches live in one browser only. Accounts and alerts are Phase 3.
+- Currency: each search is for one eBay site, so prices are in one currency and price sorting is correct. No conversion between currencies is done.
 
-## Development notes
+## Deploy (Cloudflare Pages)
 
-- The frontend calls `/api/search?q=...` on its own domain; the Cloudflare Pages Function handles OAuth and server-to-server eBay search. This avoids putting the eBay secret in the browser.
-- The API fetches from `EBAY_GB` for initial English-language results. Future work: a regional marketplace selector, more approved providers, favorites, currency handling, pagination, caching and anti-abuse controls.
-- **Sizes:** eBay item summary results often omit structured sizes; the server checks available aspects and title text. Missing sizes are labeled as unspecified.
-- **Prices:** Listings may use different currencies. Sorting compares numeric values without FX conversion; cross-currency sorting must be implemented before additional regional sources are added.
-- **No fake data.** The interface reports unavailable providers honestly.
-- **Access and costs:** Cloudflare free tiers have limits, and eBay API permissions and quotas apply. Marketplace data providers may charge fees.
+1. Cloudflare → Workers & Pages → Create → Pages → Connect to Git → `808zsomle/Grail-locator`.
+2. Framework preset **None**, build command **blank**, build output directory **`public`**. The `functions/` folder at the repo root is picked up automatically.
+3. Settings → Variables and Secrets → add encrypted **Production** secrets `EBAY_CLIENT_ID` and `EBAY_CLIENT_SECRET` (eBay production App ID and Cert ID).
+4. Redeploy. Never put keys in repo files or frontend code.
 
-This is an independent search tool and is not affiliated with Chrome Hearts or the marketplaces.
+eBay production keys require handling eBay's marketplace account deletion notification (or applying for an exemption) before they are enabled. Check developer.ebay.com.
+
+Independent tool, not affiliated with Chrome Hearts or any marketplace.
