@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#050505"><title>GRAIL LOCATER — Global Archive Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#050505;--ink:#ececee;--mute:#9a9aa0;--line:#3a3a40;--chrome:linear-gradient(120deg,#6b6b70,#fff 22%,#8d8d93 42%,#f6f6f8 56%,#5e5e63 78%,#e6e6e9)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:'DM Sans',Arial,sans-serif;min-height:100vh;background:radial-gradient(ellipse 80% 40% at 50% -5%,#34343a,transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),var(--bg)}
+button,input,select{font:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid #fff;outline-offset:2px}
+svg.o{width:1em;height:1em;fill:currentColor;vertical-align:-.12em}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px clamp(16px,5vw,70px);border-bottom:1px solid var(--line);font:500 11px 'Cinzel',serif;letter-spacing:4px;color:var(--mute)}
+.top b{color:#fff;font-weight:700}
+.hero{text-align:center;padding:50px 16px 30px}
+.orn{display:flex;align-items:center;justify-content:center;gap:16px;color:#c9c9ce;font-size:26px}
+.orn i{height:1px;flex:0 1 220px;background:linear-gradient(90deg,transparent,#b9b9bf)}.orn i:last-child{transform:scaleX(-1)}
+h1{font:700 clamp(58px,12vw,150px)/1.02 'UnifrakturCook',Georgia,serif;margin:10px 0 4px;letter-spacing:-2px;background:var(--chrome);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #000) drop-shadow(0 0 22px #ffffff22);animation:sheen 9s ease-in-out infinite alternate}
+@keyframes sheen{to{background-position:100% 0}}
+.tag{font:500 11px 'Cinzel',serif;letter-spacing:6px;color:#a9a9af}
+main{max-width:1320px;margin:auto;padding:0 clamp(12px,3vw,26px) 70px}
+.frame{padding:2px;background:linear-gradient(135deg,#d9d9de,#47474c 30%,#bdbdc2 55%,#3a3a3f 80%,#e8e8ea);box-shadow:0 18px 50px #000c}
+.search{display:flex;background:linear-gradient(#1b1b1e,#0b0b0c)}
+.search input{min-width:0;flex:1;border:0;background:transparent;color:#fff;padding:21px 22px;font-size:17px;outline:none}
+.search button{border:0;padding:0 36px;background:var(--chrome);color:#070707;font:700 13px 'Cinzel',serif;letter-spacing:3px;transition:filter .2s}
+.search button:hover{filter:brightness(1.15)}.search button:disabled{opacity:.55}
+details{margin:18px 0 8px;border:1px solid var(--line);background:#0c0c0e}
+summary{padding:13px 16px;font:700 11px 'Cinzel',serif;letter-spacing:4px;cursor:pointer;color:#cfcfd4;list-style:none}
+summary::after{content:"＋";float:right}details[open] summary::after{content:"－"}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;padding:0 14px 14px}
+.filters input,.filters select{padding:11px;border:1px solid #4a4a50;background:#131316;color:#ddd;width:100%;min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.chip{background:#111114;color:#c2c2c8;border:1px solid #48484e;padding:9px 13px;font:500 11px 'DM Sans';letter-spacing:1.5px;transition:.2s}
+.chip:hover:not(:disabled){border-color:#fff;color:#fff}.chip:disabled{opacity:.42;cursor:not-allowed}.chip[aria-pressed=true]{background:#2c2c31;border-color:#e0e0e4;color:#fff}
+.saved{display:inline-flex;border:1px solid #66666c}.saved button{background:#111114;color:#ddd;border:0;padding:8px 11px;font-size:11px}.saved button+button{border-left:1px solid #444;color:#999}
+.conn{font-size:11px;letter-spacing:2px;color:var(--mute);margin-right:4px}
+.note{padding:13px 16px;border-left:2px solid #d2d2d6;background:#161619;color:#b4b4bb;font-size:12px;line-height:1.65;margin:14px 0}.note strong{color:#fff}
+.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin:26px 0 20px;padding:16px 0;border-top:1px solid #5a5a60;border-bottom:1px solid #2c2c31}
+.heading h2{font:700 15px 'Cinzel',serif;letter-spacing:5px;margin:0}.heading p{font-size:12px;color:#a2a2a8;margin:6px 0 0}#status{font-size:11px;letter-spacing:1.5px;color:#a8a8ae;text-align:right}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{position:relative;border:1px solid transparent;background:linear-gradient(#0d0d0f,#0d0d0f) padding-box,linear-gradient(145deg,#8b8b91,#2a2a2f 38%,#d8d8dd 58%,#35353a) border-box;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #000b,0 0 0 1px #ffffff33}
+.pic{aspect-ratio:4/4.7;background:radial-gradient(#3a3a3d,#141415);position:relative;overflow:hidden;display:grid;place-items:center;font-size:46px;color:#555}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}.card:hover .pic img{transform:scale(1.05)}
+.label{position:absolute;top:10px;left:10px;background:#050506e8;border:1px solid #808086;padding:5px 8px;font:700 9px 'Cinzel',serif;letter-spacing:2px}
+.fav{position:absolute;top:8px;right:8px;width:34px;height:34px;background:#050506e8;border:1px solid #808086;color:#ddd;font-size:16px}.fav[aria-pressed=true]{background:#e8e8ec;color:#000}
+.data{padding:14px}.name{font-size:13px;font-weight:700;line-height:1.5;min-height:39px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.price{font:700 22px 'Cinzel',serif;margin:10px 0;background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent}
+.meta{display:grid;gap:3px;color:#b6b6bc;font-size:11px}.meta b{color:#8c8c92;font-weight:500}
+.go{display:block;margin-top:14px;padding:11px;border:1px solid #8c8c92;text-align:center;color:#eee;text-decoration:none;font:700 10px 'Cinzel',serif;letter-spacing:3px;transition:.2s}.go:hover{background:#e8e8ec;color:#000}
+.sk .pic{background:linear-gradient(100deg,#151517 30%,#2a2a2e 50%,#151517 70%) 0 0/300% 100%;animation:sh 1.3s linear infinite}.sk .name,.sk .price{height:14px;margin:12px 0;background:#1d1d20}
+@keyframes sh{to{background-position:-300% 0}}
+.empty{grid-column:1/-1;text-align:center;padding:64px 16px;border:1px solid #3c3c42;background:radial-gradient(ellipse at top,#26262a,#0c0c0e 70%)}
+.empty .orn{font-size:34px}.empty h3{font:400 38px 'UnifrakturCook',Georgia,serif;margin:12px 0}.empty p{max-width:560px;margin:auto;color:#aeaeb4;font-size:13px;line-height:1.7}
+.more{display:block;margin:30px auto 0;padding:15px 44px;background:#111114;border:1px solid #bbb;color:#fff;font:700 11px 'Cinzel',serif;letter-spacing:4px}.more:hover{background:#e8e8ec;color:#000}
+footer{text-align:center;border-top:1px solid #2c2c31;padding:30px 12px;font:500 10px 'Cinzel',serif;letter-spacing:3px;color:#7f7f86}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}.search button{padding:0 16px}.data{padding:10px}.price{font-size:17px}.top span:last-child{display:none}.tag{letter-spacing:3px}.search input{padding:17px 14px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="cross" viewBox="0 0 24 24"><path d="M10 1h4l.8 6.2L23 8v4l-8.2.8L14 23h-4l-.8-10.2L1 12V8l8.2-.8z"/></symbol>
+<symbol id="dagger" viewBox="0 0 24 24"><path d="M12 1l2.6 6.5V15H9.4V7.5z"/><rect x="5" y="15" width="14" height="2"/><rect x="11" y="17" width="2" height="4"/><circle cx="12" cy="22.3" r="1.4"/></symbol>
+<symbol id="fleur" viewBox="0 0 24 24"><path d="M12 1c2.6 2.6 3.2 6 0 10-3.2-4-2.6-7.4 0-10zM5 7c3.2 0 5.4 2.2 5.8 5.4C7.600 13 4.400 12 5 7zM19 7c-3.200 0-5.400 2.200-5.800 5.400 3.200.6 6.400-.4 5.800-5.400zM7 14h10v2H7zM10 16h4l1.600 7H8.400z"/></symbol>
+</defs></svg>
+<div class="top"><span><svg class="o"><use href="#cross"/></svg> &nbsp;<b>GL</b> / 001</span><span>THE INDEPENDENT GLOBAL ARCHIVE &nbsp;·&nbsp; EST. 2026</span></div>
+<section class="hero"><div class="orn"><i></i><svg class="o"><use href="#dagger"/></svg><svg class="o"><use href="#cross"/></svg><svg class="o"><use href="#fleur"/></svg><i></i></div><h1>Grail Locater</h1><div class="tag">RARE FINDS · ONE SEARCH · NO COMPROMISE</div></section>
+<main>
+<div class="frame"><form id="searchForm" class="search"><input id="query" type="search" required maxlength="120" placeholder="Robin's Jeans red studded, Ed Hardy, True Religion..." aria-label="Search listings"><button id="submit">LOCATE</button></form></div>
+<details id="fdet" open><summary>FILTERS &amp; SORT</summary><div class="filters">
+<select id="site" aria-label="eBay site and currency"><option value="EBAY_GB">eBay UK · GBP</option><option value="EBAY_US">eBay US · USD</option><option value="EBAY_DE">eBay DE · EUR</option><option value="EBAY_FR">eBay FR · EUR</option><option value="EBAY_IT">eBay IT · EUR</option><option value="EBAY_ES">eBay ES · EUR</option><option value="EBAY_AU">eBay AU · AUD</option><option value="EBAY_CA">eBay CA · CAD</option></select>
+<input id="min" type="number" min="0" step="any" placeholder="Min price" aria-label="Minimum price">
+<input id="max" type="number" min="0" step="any" placeholder="Max price" aria-label="Maximum price">
+<select id="cond" aria-label="Condition"><option value="">Any condition</option><option value="new">New</option><option value="used">Used</option></select>
+<select id="country" aria-label="Item location"><option value="">Any location</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="DE">Germany</option><option value="FR">France</option><option value="IT">Italy</option><option value="ES">Spain</option><option value="JP">Japan</option><option value="CA">Canada</option><option value="AU">Australia</option></select>
+<select id="sort" aria-label="Sort"><option value="">Best match</option><option value="newest">Newest listed</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select>
+<input id="size" placeholder="Size (32, L...)" aria-label="Size, filters loaded results">
+<input id="brand" placeholder="Brand in title" aria-label="Brand, filters loaded results">
+</div></details>
+<div class="row"><button type="button" class="chip" id="saveSearch">SAVE SEARCH</button><button type="button" class="chip" id="viewFav" aria-pressed="false">★ FAVOURITES (<span id="favCount">0</span>)</button><span id="savedList"></span></div>
+<div class="row" id="markets"><span class="conn">CONNECTIONS</span></div>
+<p class="note" id="notice"><strong>Real listings only.</strong> Only eBay is wired up, and it needs production API keys set in Cloudflare. Marketplaces marked not connected return nothing. Size and brand filters apply to listings already loaded.</p>
+<div class="heading"><div><h2>THE ARCHIVE</h2><p id="subtitle">Search for Robin's Jeans, Ed Hardy, True Religion...</p></div><div id="status" role="status" aria-live="polite">AWAITING SEARCH</div></div>
+<div class="grid" id="results"></div>
+<button class="more" id="more" hidden>LOAD MORE</button>
+</main>
+<footer>GRAIL LOCATER · INDEPENDENT SEARCH · NOT AFFILIATED WITH CHROME HEARTS OR ANY MARKETPLACE</footer>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const F=['site','min','max','cond','country','sort'],LINK=/^https:\/\/([a-z0-9-]+\.)?ebay\.[a-z.]+\//i;
+let items=[],seen=new Set(),next=null,total=0,sid=0,current='',viewFav=false,favs=store.get('gl_fav',{}),saved=store.get('gl_saved',[]);
+if(matchMedia('(max-width:680px)').matches)$('fdet').open=false;
+$('markets').insertAdjacentHTML('beforeend','<button type="button" class="chip" disabled title="Needs eBay production keys in Cloudflare">EBAY · NEEDS KEYS</button>');
+['Vinted','Grailed','Depop','Etsy','Vestiaire','Kleinanzeigen','Sellraze','SellSpy'].forEach(n=>$('markets').insertAdjacentHTML('beforeend','<button type="button" class="chip" disabled title="No legitimate public search access connected">'+n.toUpperCase()+' · NOT CONNECTED</button>'));
+const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const dupKey=x=>norm(x.title)+'|'+x.price+'|'+x.currency;
+const ORN='<div class="orn"><svg class="o"><use href="#cross"/></svg></div>';
+function money(x){if(x.price==null)return'Price n/a';try{return new Intl.NumberFormat(undefined,{style:'currency',currency:x.currency}).format(x.price)}catch{return x.price+' '+x.currency}}
+function empty(t,m){$('results').innerHTML='<div class="empty">'+ORN+'<h3>'+esc(t)+'</h3><p>'+esc(m)+'</p></div>';$('more').hidden=true}
+function skel(){$('results').innerHTML=Array(8).fill('<div class="card sk"><div class="pic"></div><div class="data"><div class="name"></div><div class="price"></div></div></div>').join('');$('more').hidden=true}
+function params(){const p=new URLSearchParams({q:$('query').value.trim()});F.forEach(k=>{const v=$(k).value;if(v)p.set(k,v)});return p}
+function render(){
+  const sz=norm($('size').value),br=norm($('brand').value);
+  let list=(viewFav?Object.values(favs):items).filter(x=>(!sz||norm(x.size||'').includes(sz))&&(!br||norm(x.title).includes(br)));
+  $('favCount').textContent=Object.keys(favs).length;
+  $('status').textContent=viewFav?list.length+' FAVOURITES':list.length+(total?' SHOWN OF '+total:' LISTINGS');
+  $('more').hidden=viewFav||next==null;
+  if(!list.length){viewFav?empty('No favourites yet','Tap the star on a listing to keep it here.'):empty('Nothing matches','Loosen the filters or broaden the search. Only live marketplace results appear.');return}
+  $('results').innerHTML=list.map(x=>{const on=!!favs[x.id];
+    return '<article class="card"><div class="pic">✠'+(x.image?'<img loading="lazy" referrerpolicy="no-referrer" src="'+esc(x.image)+'" alt="'+esc(x.title)+'">':'')+'<span class="label">'+esc(x.marketplace).toUpperCase()+'</span><button class="fav" data-id="'+esc(x.id)+'" aria-pressed="'+on+'" aria-label="'+(on?'Remove from':'Add to')+' favourites">'+(on?'★':'☆')+'</button></div><div class="data"><div class="name">'+esc(x.title)+'</div><div class="price">'+esc(money(x))+'</div><div class="meta"><span><b>Size</b> '+esc(x.size||'not listed')+'</span><span><b>Condition</b> '+esc(x.condition||'not listed')+'</span><span><b>Location</b> '+esc(x.location||'not listed')+'</span></div><a class="go" href="'+(LINK.test(x.url||'')?esc(x.url):'#')+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL ↗</a></div></article>'}).join('')}
+async function search(append){
+  const q=$('query').value.trim();if(!q)return;const id=++sid;
+  if(!append){items=[];seen=new Set();next=null;total=0;viewFav=false;$('viewFav').setAttribute('aria-pressed','false');current=params().toString();$('subtitle').textContent='RESULTS FOR: '+q.toUpperCase();skel()}
+  const p=new URLSearchParams(current);if(append&&next!=null)p.set('offset',next);
+  $('submit').disabled=true;$('more').disabled=true;$('status').textContent='SEARCHING...';
+  try{
+    const res=await fetch('/api/search?'+p,{headers:{Accept:'application/json'}});const body=await res.json().catch(()=>({}));
+    if(id!==sid)return;if(!res.ok)throw new Error(body.error||'Search unavailable.');
+    for(const x of body.items||[]){const k=dupKey(x);if(!seen.has(k)){seen.add(k);items.push(x)}}
+    next=body.next??null;total=body.total||0;$('notice').textContent=body.message||'';render();
+  }catch(e){if(id!==sid)return;$('status').textContent='SEARCH UNAVAILABLE';if(append)$('notice').textContent='Could not load more: '+e.message;else{items=[];empty('Search unavailable',e.message)}}
+  finally{if(id===sid){$('submit').disabled=false;$('more').disabled=false}}}
+function renderSaved(){$('savedList').innerHTML=saved.map((s,i)=>'<span class="saved"><button type="button" data-run="'+i+'">'+esc(new URLSearchParams(s).get('q'))+'</button><button type="button" data-del="'+i+'" aria-label="Delete saved search">×</button></span> ').join('')}
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();search(false)});
+F.forEach(k=>$(k).addEventListener('change',()=>{if($('query').value.trim())search(false)}));
+['size','brand'].forEach(k=>$(k).addEventListener('input',render));
+$('more').addEventListener('click',()=>search(true));
+$('viewFav').addEventListener('click',()=>{viewFav=!viewFav;$('viewFav').setAttribute('aria-pressed',String(viewFav));render()});
+$('results').addEventListener('click',e=>{const b=e.target.closest('.fav');if(!b)return;const id=b.dataset.id;
+  if(favs[id])delete favs[id];else{const x=items.find(i=>i.id===id)||favs[id];if(x)favs[id]=x}store.set('gl_fav',favs);render()});
+$('results').addEventListener('error',e=>{if(e.target.tagName==='IMG')e.target.remove()},true);
+$('saveSearch').addEventListener('click',()=>{if(!$('query').value.trim())return;const s=params().toString();if(!saved.includes(s)){saved.unshift(s);saved=saved.slice(0,20);store.set('gl_saved',saved);renderSaved()}});
+$('savedList').addEventListener('click',e=>{const r=e.target.dataset.run,d=e.target.dataset.del;
+  if(d!==undefined){saved.splice(+d,1);store.set('gl_saved',saved);renderSaved()}
+  else if(r!==undefined){const p=new URLSearchParams(saved[+r]);$('query').value=p.get('q')||'';F.forEach(k=>$(k).value=p.get(k)||'');search(false)}});
+renderSaved();$('favCount').textContent=Object.keys(favs).length;
+empty('The hunt starts here.','Search to see real listing photos, prices, sizes when available, locations and conditions, all inside Grail Locater.');
+</script></body></html>
